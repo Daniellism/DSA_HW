@@ -1,30 +1,18 @@
 /**
  *  A simple generic binary tree class to demonstrate the basic principles
- *  of implementing a tree data structure. This should not be taken as a production
- *  quality class (see the text book instead).
+ *  of implementing a tree data structure. 
  */
 
 import java.util.Stack;
 import java.util.Iterator;
 
-/**
- * Objects stored in a tree must conform to Comparable so that their values can
- * be compared. The type parameter is constained to conform to Comparable to
- * enforce this.
- */
+
 public class BinaryTree<E extends Comparable<E>> implements Tree<E>
 {
-  /**
-   * A tree is a hierarchical structure of TreeNode objects. root references
-   * the first node on the tree.
-   */
+ 
   private TreeNode<E> root;
 
-  /**
-   *  Helper class used to implement tree nodes. As this is a private helper
-   *  class it is acceptable to have public instance variables. Instances of
-   *  this class are never made available to client code of the tree.
-   */
+ 
   private static class TreeNode<T extends Comparable<T>>
   {
     /**
@@ -37,13 +25,7 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E>
      */
     public TreeNode<T> left,right;
 
-    /**
-     *  Constructor for TreeNode.
-     *
-     *@param  val    data object reference
-     *@param  left   left child node reference or null
-     *@param  right  right child node reference or null
-     */
+    
     public TreeNode(T val, TreeNode<T> left, TreeNode<T> right)
     {
       this.val = val;
@@ -104,19 +86,6 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E>
       return (left == null) ? null : left.find(obj) ;
     }
 
-    /**
-     * Remove the node referencing an object representing the same value as the argument object.
-     * This recursive method essentially restructures the tree as necessary and returns a
-     * reference to the new root. The algorithm is straightforward apart from the case
-     * where the node to be removed has two children. In that case the left-most leaf node
-     * of the right child is moved up the tree to replace the removed node. Hand work some
-     * examples to see how this works.
-     *
-     * @param obj Object representing value to remove from tree.
-     * @param t Root node of the sub-tree currently being examined (possibly null).
-     * @return reference to the (possibly new) root node of the sub-tree being examined or
-     * null if no node.
-     */
     private TreeNode<T> remove(T obj, TreeNode<T> t)
     {
       if (t == null)
@@ -174,13 +143,6 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E>
     root = null ;
   }
 
-  /**
-   * Store an object in the tree. The object must conform to type Comparable
-   * in order to be inserted in the correct location. Multiple objects representing the
-   * same value can be added.
-   *
-   * @param obj reference to Comparable object to add.
-   */
   public void add(E obj)
   {
     if (root == null)
@@ -212,12 +174,6 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E>
     }
   }
 
-  /**
-   * Remove an object with a matching value from the tree. If multiple
-   * matches are possible, only the first matching object is removed.
-   *
-   * @param obj Remove an object with a matching value from the tree.
-   */
   public void remove(E obj)
   {
     if (root != null)
@@ -226,13 +182,6 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E>
     }
   }
 
-  /**
-   * Simple pre-order iterator class. An iterator object will sequence through
-   * the tree contents in ascending order.
-   * A stack is used to keep track of where the iteration has reached in the tree.
-   * Note that if new items are added or removed during an iteration, there is no
-   * guarantee that the iteration will continue correctly.
-   */
   private class PreOrderIterator implements Iterator<E>
   {
     private Stack<TreeNode<E>> nodes = new Stack<TreeNode<E>>() ;
@@ -245,12 +194,6 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E>
       pushLeft(root) ;
     }
 
-    /**
-     * Get next obnject in sequence.
-     *
-     * @return next object in sequence or null if the end of the sequence has
-     * been reached.
-     */
     public E next()
     {
       if (nodes.isEmpty())
@@ -272,17 +215,7 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E>
       return !nodes.isEmpty() ;
     }
 
-    /**
-     * The remove operation is not supported by this iterator. This illustrates
-     * that a method required by an implemented interface can be written to not
-     * support the operation but should throw an exception if called.
-     * UnsupportedOperationException is a subclass of RuntimeException and is
-     * not required to be caught at runtime, so the remove method does not
-     * have a throws declaration. Calling methods do not have to use a try/catch
-     * block pair.
-     *
-     * @throws UnsupportedOperationException if method is called.
-     */
+ 
     public void remove()
     {
       throw new UnsupportedOperationException();
